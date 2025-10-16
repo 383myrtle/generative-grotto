@@ -34,7 +34,7 @@ const Index = () => {
             <div className="flex items-center gap-2">
               <Sparkles className="h-5 w-5" />
               <h1 className="text-xl font-semibold tracking-tight">
-                AI_CONTENT_GENERATOR
+                Content generator
               </h1>
             </div>
           </header>
@@ -53,7 +53,7 @@ const Index = () => {
 
             {/* Footer */}
             <div className="text-center mt-16 text-muted-foreground">
-              <p className="text-xs font-mono">// POWERED_BY_LOVABLE_CLOUD</p>
+              <p className="text-xs font-mono">&gt; created by Yazeed Adams with Lovable</p>
             </div>
           </div>
         </main>
