@@ -24,22 +24,17 @@ const Index = () => {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen w-full flex bg-background relative overflow-hidden">
-        {/* Animated background gradients */}
-        <div className="absolute inset-0 bg-gradient-radial opacity-30 animate-pulse-slow" />
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-float" style={{ animationDelay: "1.5s" }} />
-        
+      <div className="min-h-screen w-full flex bg-background">
         <AppSidebar activeView={activeView} onViewChange={setActiveView} />
 
-        <main className="flex-1 relative z-10">
-          {/* Header with trigger */}
-          <header className="h-16 flex items-center border-b border-border/50 px-4 backdrop-blur-sm">
+        <main className="flex-1">
+          {/* Header */}
+          <header className="h-16 flex items-center border-b border-border px-4">
             <SidebarTrigger className="mr-4" />
             <div className="flex items-center gap-2">
-              <Sparkles className="h-6 w-6 text-primary animate-pulse" />
-              <h1 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                AI Content Generator
+              <Sparkles className="h-5 w-5" />
+              <h1 className="text-xl font-semibold tracking-tight">
+                AI_CONTENT_GENERATOR
               </h1>
             </div>
           </header>
@@ -47,8 +42,8 @@ const Index = () => {
           {/* Main Content */}
           <div className="container mx-auto px-4 py-8">
             <div className="max-w-4xl mx-auto">
-              <p className="text-lg text-muted-foreground mb-8 text-center">
-                Generate text, images, or code with the power of AI. Simply enter your prompt and let artificial intelligence create for you.
+              <p className="text-sm text-muted-foreground mb-8 text-center font-mono">
+                &gt; Generate text, images, or code with AI
               </p>
               
               <div className="space-y-6">
@@ -58,7 +53,7 @@ const Index = () => {
 
             {/* Footer */}
             <div className="text-center mt-16 text-muted-foreground">
-              <p className="text-sm">Powered by Lovable Cloud & AI</p>
+              <p className="text-xs font-mono">// POWERED_BY_LOVABLE_CLOUD</p>
             </div>
           </div>
         </main>

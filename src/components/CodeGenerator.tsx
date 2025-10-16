@@ -75,30 +75,30 @@ export const CodeGenerator = () => {
         <Button
           onClick={handleGenerate}
           disabled={loading}
-          className="w-full bg-gradient-primary hover:opacity-90 transition-opacity shadow-glow"
+          className="w-full"
         >
           {loading ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Generating...
+              GENERATING...
             </>
           ) : (
             <>
               <Code className="mr-2 h-4 w-4" />
-              Generate Code
+              GENERATE_CODE
             </>
           )}
         </Button>
       </div>
 
       {generatedCode && (
-        <Card className="p-6 bg-card border-border animate-in fade-in-50 duration-500">
-          <h3 className="text-lg font-semibold mb-4 text-foreground flex items-center gap-2">
-            <Code className="h-5 w-5 text-primary" />
-            Generated Code
+        <Card className="p-6 border-border">
+          <h3 className="text-sm font-semibold mb-4 flex items-center gap-2 uppercase tracking-wider">
+            <Code className="h-4 w-4" />
+            Generated_Code
           </h3>
-          <pre className="bg-secondary p-4 rounded-lg overflow-x-auto">
-            <code className="text-sm text-foreground">{generatedCode}</code>
+          <pre className="bg-muted p-4 rounded overflow-x-auto border border-border">
+            <code className="text-xs">{generatedCode}</code>
           </pre>
         </Card>
       )}

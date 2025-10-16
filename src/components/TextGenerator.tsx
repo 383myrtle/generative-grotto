@@ -71,30 +71,30 @@ export const TextGenerator = () => {
         <Button
           onClick={handleGenerate}
           disabled={loading}
-          className="w-full bg-gradient-primary hover:opacity-90 transition-opacity shadow-glow"
+          className="w-full"
         >
           {loading ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Generating...
+              GENERATING...
             </>
           ) : (
             <>
               <Sparkles className="mr-2 h-4 w-4" />
-              Generate Text
+              GENERATE_TEXT
             </>
           )}
         </Button>
       </div>
 
       {generatedText && (
-        <Card className="p-6 bg-card border-border animate-in fade-in-50 duration-500">
-          <h3 className="text-lg font-semibold mb-4 text-foreground flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-primary" />
-            Generated Text
+        <Card className="p-6 border-border">
+          <h3 className="text-sm font-semibold mb-4 flex items-center gap-2 uppercase tracking-wider">
+            <Sparkles className="h-4 w-4" />
+            Generated_Text
           </h3>
           <div className="prose prose-invert max-w-none">
-            <p className="text-foreground whitespace-pre-wrap">{generatedText}</p>
+            <p className="text-sm whitespace-pre-wrap">{generatedText}</p>
           </div>
         </Card>
       )}

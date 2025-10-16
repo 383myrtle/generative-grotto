@@ -72,32 +72,32 @@ export const ImageGenerator = () => {
         <Button
           onClick={handleGenerate}
           disabled={loading}
-          className="w-full bg-gradient-primary hover:opacity-90 transition-opacity shadow-glow"
+          className="w-full"
         >
           {loading ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Generating...
+              GENERATING...
             </>
           ) : (
             <>
               <ImageIcon className="mr-2 h-4 w-4" />
-              Generate Image
+              GENERATE_IMAGE
             </>
           )}
         </Button>
       </div>
 
       {imageUrl && (
-        <Card className="p-6 bg-card border-border animate-in fade-in-50 duration-500">
-          <h3 className="text-lg font-semibold mb-4 text-foreground flex items-center gap-2">
-            <ImageIcon className="h-5 w-5 text-primary" />
-            Generated Image
+        <Card className="p-6 border-border">
+          <h3 className="text-sm font-semibold mb-4 flex items-center gap-2 uppercase tracking-wider">
+            <ImageIcon className="h-4 w-4" />
+            Generated_Image
           </h3>
           <img
             src={imageUrl}
             alt="Generated"
-            className="w-full rounded-lg shadow-glow-lg"
+            className="w-full rounded border border-border"
           />
         </Card>
       )}
