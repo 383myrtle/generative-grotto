@@ -11,14 +11,26 @@ serve(async (req) => {
   }
 
   try {
-    const { prompt } = await req.json();
+    const { prompt, style = "neutral" } = await req.json();
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     
     if (!LOVABLE_API_KEY) {
       throw new Error("LOVABLE_API_KEY is not configured");
     }
 
-    console.log("Generating text with prompt:", prompt);
+    console.log("Generating text with prompt:", prompt, "style:", style);
+
+    const stylePrompts: Record<string, string> = {
+      neutral: "",
+      formal: "Write in a formal, professional tone with proper grammar and sophisticated vocabulary.",
+      casual: "Write in a casual, conversational tone as if talking to a friend.",
+      professional: "Write in a professional business tone suitable for corporate communications.",
+      creative: "Write in a creative, engaging tone with vivid descriptions and imaginative language.",
+      technical: "Write in a technical, precise tone with accurate terminology and clear explanations.",
+    };
+
+    const styleInstruction = stylePrompts[style] || stylePrompts.neutral;
+    const fullPrompt = styleInstruction ? `${styleInstruction}\n\n${prompt}` : prompt;
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -33,7 +45,7 @@ serve(async (req) => {
             role: "system", 
             content: "You are a helpful AI assistant. Generate creative, well-structured content based on user prompts." 
           },
-          { role: "user", content: prompt }
+          { role: "user", content: fullPrompt }
         ],
       }),
     });

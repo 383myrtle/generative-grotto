@@ -2,12 +2,15 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
 import { Loader2, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 export const TextGenerator = () => {
   const [prompt, setPrompt] = useState("");
+  const [style, setStyle] = useState("neutral");
   const [generatedText, setGeneratedText] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -20,7 +23,7 @@ export const TextGenerator = () => {
     setLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke("generate-text", {
-        body: { prompt },
+        body: { prompt, style },
       });
 
       if (error) throw error;
@@ -43,6 +46,22 @@ export const TextGenerator = () => {
   return (
     <div className="space-y-6">
       <div className="space-y-4">
+        <div className="space-y-2">
+          <Label>Writing Style</Label>
+          <Select value={style} onValueChange={setStyle}>
+            <SelectTrigger className="bg-card border-border">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="neutral">Neutral</SelectItem>
+              <SelectItem value="formal">Formal</SelectItem>
+              <SelectItem value="casual">Casual</SelectItem>
+              <SelectItem value="professional">Professional</SelectItem>
+              <SelectItem value="creative">Creative</SelectItem>
+              <SelectItem value="technical">Technical</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
         <Textarea
           placeholder="Enter your prompt... (e.g., Write a short story about space exploration)"
           value={prompt}

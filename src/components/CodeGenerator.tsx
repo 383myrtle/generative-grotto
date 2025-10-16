@@ -2,12 +2,15 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
 import { Loader2, Code } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 export const CodeGenerator = () => {
   const [prompt, setPrompt] = useState("");
+  const [language, setLanguage] = useState("javascript");
   const [generatedCode, setGeneratedCode] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -20,7 +23,7 @@ export const CodeGenerator = () => {
     setLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke("generate-code", {
-        body: { prompt },
+        body: { prompt, language },
       });
 
       if (error) throw error;
@@ -43,6 +46,26 @@ export const CodeGenerator = () => {
   return (
     <div className="space-y-6">
       <div className="space-y-4">
+        <div className="space-y-2">
+          <Label>Programming Language</Label>
+          <Select value={language} onValueChange={setLanguage}>
+            <SelectTrigger className="bg-card border-border">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="javascript">JavaScript</SelectItem>
+              <SelectItem value="typescript">TypeScript</SelectItem>
+              <SelectItem value="python">Python</SelectItem>
+              <SelectItem value="java">Java</SelectItem>
+              <SelectItem value="cpp">C++</SelectItem>
+              <SelectItem value="csharp">C#</SelectItem>
+              <SelectItem value="go">Go</SelectItem>
+              <SelectItem value="rust">Rust</SelectItem>
+              <SelectItem value="php">PHP</SelectItem>
+              <SelectItem value="ruby">Ruby</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
         <Textarea
           placeholder="Enter your prompt... (e.g., Create a React component for a todo list)"
           value={prompt}

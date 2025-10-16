@@ -2,12 +2,15 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
 import { Loader2, Image as ImageIcon } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 export const ImageGenerator = () => {
   const [prompt, setPrompt] = useState("");
+  const [style, setStyle] = useState("realistic");
   const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -20,7 +23,7 @@ export const ImageGenerator = () => {
     setLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke("generate-image", {
-        body: { prompt },
+        body: { prompt, style },
       });
 
       if (error) throw error;
@@ -43,6 +46,23 @@ export const ImageGenerator = () => {
   return (
     <div className="space-y-6">
       <div className="space-y-4">
+        <div className="space-y-2">
+          <Label>Image Style</Label>
+          <Select value={style} onValueChange={setStyle}>
+            <SelectTrigger className="bg-card border-border">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="realistic">Realistic</SelectItem>
+              <SelectItem value="cartoon">Cartoon</SelectItem>
+              <SelectItem value="illustration">Illustration</SelectItem>
+              <SelectItem value="abstract">Abstract</SelectItem>
+              <SelectItem value="photographic">Photographic</SelectItem>
+              <SelectItem value="anime">Anime</SelectItem>
+              <SelectItem value="3d-render">3D Render</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
         <Input
           placeholder="Enter your prompt... (e.g., A futuristic cityscape at sunset)"
           value={prompt}
